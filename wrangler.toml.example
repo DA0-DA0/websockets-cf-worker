@@ -1,0 +1,17 @@
+name = "websockets"
+main = "src/index.ts"
+compatibility_date = "2023-02-07"
+node_compat = true
+
+[durable_objects]
+bindings = [
+  { name = "DAOS", class_name = "Dao" },
+]
+
+# https://developers.cloudflare.com/workers/learning/using-durable-objects/#durable-object-migrations-in-wranglertoml
+[[migrations]]
+tag = "v1"
+new_classes = ["Dao"]
+
+# Secrets:
+# - WEBHOOK_SECRET
