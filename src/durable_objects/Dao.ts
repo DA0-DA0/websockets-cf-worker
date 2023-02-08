@@ -1,5 +1,5 @@
 import { Env } from '../types'
-import { respondError } from '../utils'
+import { respond, respondError } from '../utils'
 
 // Dao implements a Durable Object that coordinates webhooks for a single DAO's
 // events. Page viewers connect to this using WebSockets, and it broadcasts
@@ -43,7 +43,11 @@ export class Dao implements DurableObject {
       case '/broadcast': {
         // Broadcast the request body to all connected clients.
         const body: Record<string, unknown> = await request.json()
-        this.broadcast(body)
+        await this.broadcast(body)
+
+        return respond(200, {
+          success: true,
+        })
       }
 
       default:
